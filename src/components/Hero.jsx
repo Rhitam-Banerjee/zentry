@@ -4,6 +4,7 @@ import { TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import useResponsiveClipPathHero from "../HOC/useResponsiveClipPathHero";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +13,8 @@ const Hero = () => {
   const [loadedVideos, setLoadedVideos] = useState(0);
   const [hasClicked, setHasClicked] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(1);
+
+  const w = useResponsiveClipPathHero();
 
   const totalVideos = 4;
   const nextVideoRef = useRef(null);
@@ -59,6 +62,28 @@ const Hero = () => {
       revertOnUpdate: true,
     }
   );
+  //  ---------- Not Working with dynamic paths --------------
+  // useGSAP(() => {
+  //   gsap.set("#video-frame", {
+  //     clipPath: `path('${w.initial}')`,
+  //   });
+  //   gsap
+  //     .timeline({
+  //       scrollTrigger: {
+  //         trigger: "#video-frame",
+  //         start: "center center",
+  //         end: "bottom center",
+  //         scrub: true,
+  //       },
+  //       defaults: { ease: "power1.inOut" },
+  //     })
+  //     .to("#video-frame", {
+  //       clipPath: `path('${w.middle}')`,
+  //     })
+  //     .to("#video-frame", {
+  //       clipPath: `path('${w.final}')`,
+  //     });
+  // });
 
   useGSAP(() => {
     gsap.set("#video-frame", {
@@ -85,6 +110,15 @@ const Hero = () => {
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {isLoading && (
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+          <div className="three-body">
+            <div className="three-body__dot" />
+            <div className="three-body__dot" />
+            <div className="three-body__dot" />
+          </div>
+        </div>
+      )}
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden bg-blue-75"
