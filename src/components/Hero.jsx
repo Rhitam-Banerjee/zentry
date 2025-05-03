@@ -3,10 +3,10 @@ import { Button } from "./";
 import { TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger, MorphSVGPlugin } from "gsap/all";
 import useResponsiveClipPathHero from "../HOC/useResponsiveClipPathHero";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
 
 const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -62,33 +62,8 @@ const Hero = () => {
       revertOnUpdate: true,
     }
   );
-  //  ---------- Not Working with dynamic paths --------------
-  // useGSAP(() => {
-  //   gsap.set("#video-frame", {
-  //     clipPath: `path('${w.initial}')`,
-  //   });
-  //   gsap
-  //     .timeline({
-  //       scrollTrigger: {
-  //         trigger: "#video-frame",
-  //         start: "center center",
-  //         end: "bottom center",
-  //         scrub: true,
-  //       },
-  //       defaults: { ease: "power1.inOut" },
-  //     })
-  //     .to("#video-frame", {
-  //       clipPath: `path('${w.middle}')`,
-  //     })
-  //     .to("#video-frame", {
-  //       clipPath: `path('${w.final}')`,
-  //     });
-  // });
 
   useGSAP(() => {
-    gsap.set("#video-frame", {
-      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-    });
     gsap
       .timeline({
         scrollTrigger: {
@@ -100,12 +75,9 @@ const Hero = () => {
         defaults: { ease: "power1.inOut" },
       })
       .to("#video-frame", {
-        clipPath: "polygon(14% 0, 80% 0, 90% 85%, 0 95%)",
-      })
-      .to("#video-frame", {
-        clipPath: "polygon(20% 0, 85% 10%, 87% 87%, 0 80%)",
+        clipPath: `path('${w.middle}')`,
       });
-  });
+  }, [w.initial, w.middle]);
 
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
   return (
@@ -122,6 +94,9 @@ const Hero = () => {
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden bg-blue-75"
+        style={{
+          clipPath: `path('${w.initial}')`,
+        }}
       >
         <div>
           <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
@@ -148,7 +123,7 @@ const Hero = () => {
             onLoadedData={handleVideoLoad}
           />
           <video
-            autoPlay
+            // autoPlay
             src={getVideoSrc(
               currentIndex === totalVideos - 1 ? 1 : currentIndex
             )}
