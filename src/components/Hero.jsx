@@ -77,7 +77,7 @@ const Hero = () => {
       .to("#video-frame", {
         clipPath: `path('${w.middle}')`,
       });
-  }, [w.initial, w.middle]);
+  }, [w]);
 
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
   return (
