@@ -69,13 +69,16 @@ const Hero = () => {
         scrollTrigger: {
           trigger: "#video-frame",
           start: "center center",
-          end: "bottom center",
+          end: "+=700 center",
           scrub: true,
         },
         defaults: { ease: "power1.inOut" },
       })
       .to("#video-frame", {
         clipPath: `path('${w.middle}')`,
+      })
+      .to("#video-frame", {
+        clipPath: `path('${w.final}')`,
       });
   }, [w]);
 

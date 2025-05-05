@@ -73,15 +73,11 @@ body {
   }
 
   .about-subtext {
-    @apply absolute bottom-[-90dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
+    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
   }
 
   .about-image {
     @apply absolute left-1/2 top-0 z-20 h-[60vh] w-96 origin-center -translate-x-1/2 overflow-hidden rounded-3xl md:w-[30vw];
-  }
-
-  .about-image-mod {
-    @apply absolute left-1/2 top-0 z-20 h-full w-full origin-center -translate-x-1/2 overflow-hidden;
   }
 
   .animated-title {
@@ -170,6 +166,9 @@ body {
     transform: translateY(-0px);
   }
 }
+
+/* From Uiverse.io by G4b413l */
+/* https://uiverse.io/G4b413l/tidy-walrus-92 */
 .three-body {
   --uib-size: 35px;
   --uib-speed: 0.8s;
