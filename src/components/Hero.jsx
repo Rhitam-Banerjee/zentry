@@ -126,7 +126,7 @@ const Hero = () => {
             onLoadedData={handleVideoLoad}
           />
           <video
-            autoPlay
+            // autoPlay
             src={getVideoSrc(
               currentIndex === totalVideos - 1 ? 1 : currentIndex
             )}
