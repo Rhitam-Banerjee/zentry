@@ -59,7 +59,7 @@ const Navbar = () => {
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between py-4 px-10">
           <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="Logo" className="w-10" />
+            <img src="./img/logo.png" alt="Logo" className="w-10" />
             <Button
               id="product-button"
               title="Products"
@@ -84,7 +84,7 @@ const Navbar = () => {
               onClick={toggleAudioIndicator}
             >
               <audio
-                src="/audio/loop.mp3"
+                src="./audio/loop.mp3"
                 loop
                 ref={audioElementRef}
                 className="hidden"
@@ -94,9 +94,8 @@ const Navbar = () => {
                 .map((_, index) => (
                   <div
                     key={index}
-                    className={`indicator-line ${
-                      indicatorActive ? "active" : ""
-                    }`}
+                    className={`indicator-line ${indicatorActive ? "active" : ""
+                      }`}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   />
                 ))}
