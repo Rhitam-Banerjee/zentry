@@ -1,5 +1,7 @@
 import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger)
 
 const AnimatedTitle = ({ title = "", containerClass }) => {
   const containerRef = useRef(null);

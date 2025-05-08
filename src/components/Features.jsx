@@ -1,11 +1,12 @@
 import { useGSAP } from "@gsap/react";
 import { useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
-import { ScrollTrigger } from "gsap/all";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger)
 
 export const BentoTilt = ({ children, className = "" }) => {
-  const [transformStyle, setTransformStyle] = useState("");
+  const [transformStyle, setTransformStyle] = useState("perspective(1000px) rotateX(18deg)");
   const itemRef = useRef(null);
 
   const handleMouseMove = (event) => {
@@ -20,7 +21,7 @@ export const BentoTilt = ({ children, className = "" }) => {
     const tiltX = (relativeY - 0.5) * 5;
     const tiltY = (relativeX - 0.5) * -5;
 
-    const newTransform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`;
+    const newTransform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`;
     setTransformStyle(newTransform);
   };
 
@@ -28,27 +29,29 @@ export const BentoTilt = ({ children, className = "" }) => {
     setTransformStyle("");
   };
   useGSAP(() => {
+    gsap.set(".cards", {
+      transform: "perspective(1000px) rotateX(18deg)",
+    })
     gsap.timeline({
       scrollTrigger: {
-        trigger: ".cardGroup",
+        trigger: ".container",
         start: "top bottom",
-        end: "200px center",
+        end: "+=400 center",
         pin: false,
-        markers: true,
         scrub: 0.5,
+        onLeave: () => {
+          setTransformStyle("")
+        }
       }
-    }).from(".cards", {
-      transform: "translate(0px, 100px) rotateX(-40deg)",
-      rotateX: ""
     }).to(".cards", {
-      transform: "none",
+      transform: "rotateX(0deg)",
     })
   })
 
   return (
     <div
       ref={itemRef}
-      className={`cards ${className}`}
+      className={`${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ transform: transformStyle }}
@@ -131,7 +134,7 @@ const Features = () => (
         </p>
       </div>
 
-      <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
+      <BentoTilt className="cards border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
         <BentoCard
           src="videos/feature-1.mp4"
           title={
